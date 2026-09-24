@@ -77,6 +77,12 @@ function ProfileCard() {
         setText("");
     }
 
+    function deletePost(id) {
+        setPosts(
+            posts.filter((post) => post.id !== id)
+        );
+    }
+
     return (
         <section className="profile-card">
             <div className="profile">
@@ -89,7 +95,7 @@ function ProfileCard() {
 
             <form className="post-form" onSubmit={addPost}>
                 <input type="text" placeholder="Заголовок" value={title} onChange={(event) => setTitle(event.target.value)} />
-                <textarea placeholder="Текст поста" value={text} onChange={(event) => setText(event.target.value)}></textarea>
+                <textarea placeholder="Текст поста" cols="75" value={text} onChange={(event) => setText(event.target.value)}></textarea>
                 <button type="submit">Опубликовать</button>
             </form>
 
@@ -98,10 +104,11 @@ function ProfileCard() {
                     key={post.id}
                     author={post.author}
                     title={post.title}
-                    likes={17}
                     text={post.text}
+                    id = {post.id}
+                    onDelete={deletePost}
                 />
-            ))};
+            ))}
 
             {/* <Post author="Viktor" title="Study React for frontend"  likes={17} text="какой-то осмысленный текст" /> */}
             {/* <Post author="Viktor" title="Explore web-dev"  likes={17} text="какой-то осмысленный текст" />

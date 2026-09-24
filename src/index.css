@@ -14,14 +14,17 @@ button {
 
 .app {
   min-height: 100vh;
+  background-color: #f4decb;
 }
 
 /* HEADER */
 .header {
-  background: #111827;
+  background: #94618e;
   color: white;
   text-align: center;
   padding: 40px 20px;
+  /* border: 15px solid; */
+  /* background-image: linear-gradient(to bottom, #94618e, #f4decb); */
 }
 
 .header h1 {
@@ -31,7 +34,7 @@ button {
 
 .header p {
   margin: 0;
-  color: #9ca3af;
+  color: black;
 }
 
 /* MAIN */
@@ -46,7 +49,7 @@ main {
   background: white;
   border-radius: 20px;
   padding: 25px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.08);
 }
 
 .profile {
@@ -129,4 +132,26 @@ main {
 
 .actions button:active {
   transform: translateY(0);
+}
+
+.post-form {
+  padding: 20px;
+  border: 1px solid #94618e;
+  box-shadow: 0px 5px 15px #49274a;
+  border-radius: 10px;
+}
+
+.post-form input, .post-form textarea {
+  margin: 5px 0;
+  padding: 10px 0px;
+}
+
+.post-form button {
+  position: relative;
+  background: #94618e;
+  height: 30px;
+}
+
+.delete-button {
+  margin-top: 10px;
 }
