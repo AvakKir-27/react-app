@@ -27,6 +27,47 @@ button {
   /* background-image: linear-gradient(to bottom, #94618e, #f4decb); */
 }
 
+
+
+.header-title {
+    color: #000000;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0 0 5px 0;
+    font-size: 28px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.header-subtitle {
+    color: #7f8c8d; 
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin: 0 0 20px 0;
+    font-size: 14px;
+}
+
+.header-nav {
+    display: flex; /* Включаем Flexbox */
+    align-items: center; /* Выравниваем по центру по вертикали */
+    justify-content: center; /* Выравниваем по центру по горизонтали */
+    gap: 25px; 
+}
+
+.header-link {
+    color: #000000; 
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    text-decoration: none; 
+    padding: 8px 12px; 
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.header-link:hover {
+    background-color: #eaf2f8;
+    color: #94618e;
+}
+
+
 .header h1 {
   margin: 0 0 10px;
   font-size: 32px;
