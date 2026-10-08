@@ -191,8 +191,14 @@ main {
   position: relative;
   background: #94618e;
   height: 30px;
+  margin-right: 20px;
 }
 
 .delete-button {
   margin-top: 10px;
 }
+.deleteAll-button {
+  display: inline;
+  justify-content: center;
+}
+

@@ -1,29 +1,49 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProfileCard from "../components/ProfileCard";
 import Post from "../components/Post";
 
 function Profile() {
 
-const [ posts, setPosts ] = useState([
+const [ posts, setPosts ] = useState(() => 
+{
+    const savedPosts = localStorage.getItem("posts")
+    if(savedPosts) {
+        return JSON.parse(savedPosts)
+    }
+
+    return [
         {
             id: 1,
             title: "text text text",
             text: "post post post",
             author: "Viktor"
-        }
-    ]);
+        },
+    ]
+}); 
 
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
 
+    // useEffect(() => {
+    //     console.log("Изменились посты");
+    // }, [posts]);
+    
+    useEffect(() => {
+        localStorage.setItem(
+            "posts",
+            JSON.stringify(posts)
+        );
+    }, [posts]);
+
     function addPost(event) {
         event.preventDefault();
+        if(!title.trim() || !text.trim()) return;
 
         const newPost = {
             id: Date.now(),
             title: title,
             text: text,
-            author: "Viktor"
+            author: "Kirill"
         }
 
         setPosts([...posts, newPost]);
@@ -37,29 +57,52 @@ const [ posts, setPosts ] = useState([
         );
     }
 
+    function deletePosts() {
+        setPosts(
+            posts.filter((post) => post.id < 0)
+        );
+    }
+
+
+
     return (
         <section>
             <h1>Профиль</h1>
             <ProfileCard />
             <div className="feed">
                 <h2>Мои публикации</h2>
+                <p>Всего публикаций: {posts.length}</p>
 
                 <form className="post-form" onSubmit={addPost}>
                 <input type="text" placeholder="Заголовок" value={title} onChange={(event) => setTitle(event.target.value)} />
                 <textarea placeholder="Текст поста" cols="75" value={text} onChange={(event) => setText(event.target.value)}></textarea>
                 <button type="submit">Опубликовать</button>
+                {posts.length !== 0 ? (
+                    <button class="deleteAll-button" onClick={() => deletePosts()}>Очистить все посты</button>
+                ) : (
+                    <span>
+                    </span>
+                )
+                }
                 </form>
 
-                 {posts.map((post) => (
-                <Post
-                    key={post.id}
-                    author={post.author}
-                    title={post.title}
-                    text={post.text}
-                    id = {post.id}
-                    onDelete={deletePost}
-                />
-            ))}
+                {posts.length > 0 ? (
+                    (posts.map((post) => (
+                    <Post
+                        key ={post.id}
+                        author={post.author}
+                        title={post.title}
+                        text={post.text}
+                        id = {post.id}
+                        onDelete={deletePost}
+                    />
+                )))
+            ) : (
+                <p>
+                    Опубликовать свой первый пост
+                </p>
+                )}
+                
             </div>
 
         </section>

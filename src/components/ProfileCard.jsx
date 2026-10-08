@@ -86,9 +86,11 @@ function ProfileCard() {
     return (
         <section className="profile-card">
             <div className="profile">
-                <div className="avatar">avatar</div>
+                <div className="avatar">
+                    <img src="src\assets\react.svg"></img>
+                </div>
                 <div className="profile-info">
-                    <h2>Name</h2>
+                    <h2>Kirill</h2>
                     <p>@nickname</p>
                 </div>
                 <p className="profile-description">айти студент в колледже академия TOP</p>

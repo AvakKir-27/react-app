@@ -5,7 +5,6 @@ function Header() {
         <header className="header">
             <h1 className="header-title">SOCIAL NETWORK</h1>
             <p className="header-subtitle">for communicate</p>
-            <br></br>
             <nav className="header-nav">
                 <Link className="header-link" to="/">Главная</Link>
                 <Link className="header-link" to="/profile">Профиль</Link>
