@@ -1,54 +1,59 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ProfileCard from "../components/ProfileCard";
 import Post from "../components/Post";
 
+import { usePosts } from "../context/PostsContext";
+import { useUser } from "../context/UserContext";
+
 function Profile() {
 
-const [ posts, setPosts ] = useState(() => 
-{
-    const savedPosts = localStorage.getItem("posts")
-    if(savedPosts) {
-        return JSON.parse(savedPosts)
-    }
+// const [ posts, setPosts ] = useState(() => 
+// {
+//     const savedPosts = localStorage.getItem("posts")
+//     if(savedPosts) {
+//         return JSON.parse(savedPosts)
+//     }
 
-    return [
-        {
-            id: 1,
-            title: "text text text",
-            text: "post post post",
-            author: "Viktor"
-        },
-    ]
-}); 
-
+//     return [
+//         {
+//             id: 1,
+//             title: "text text text",
+//             text: "post post post",
+//             author: "Viktor"
+//         },
+//     ]
+// }); 
+    const {userName} = useUser();
+    const { posts, setPosts } = usePosts();
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
-
-    // useEffect(() => {
-    //     console.log("Изменились посты");
-    // }, [posts]);
+    const [error, setError] = useState("");
     
-    useEffect(() => {
-        localStorage.setItem(
-            "posts",
-            JSON.stringify(posts)
-        );
-    }, [posts]);
+    // useEffect(() => {
+    //     localStorage.setItem(
+    //         "posts",
+    //         JSON.stringify(posts)
+    //     );
+    // }, [posts]);
 
     function addPost(event) {
         event.preventDefault();
-        if(!title.trim() || !text.trim()) return;
+        if(!title.trim() || !text.trim()) {
+            setError("Заполните заголовок и текст поста");
+            return;
+        }
 
         const newPost = {
             id: Date.now(),
             title: title,
             text: text,
-            author: "Kirill"
+            author: userName
         }
 
         setPosts([...posts, newPost]);
         setTitle("");
         setText("");
+        setError("");
     }
 
     function deletePost(id) {
@@ -74,16 +79,21 @@ const [ posts, setPosts ] = useState(() =>
                 <p>Всего публикаций: {posts.length}</p>
 
                 <form className="post-form" onSubmit={addPost}>
-                <input type="text" placeholder="Заголовок" value={title} onChange={(event) => setTitle(event.target.value)} />
-                <textarea placeholder="Текст поста" cols="75" value={text} onChange={(event) => setText(event.target.value)}></textarea>
-                <button type="submit">Опубликовать</button>
-                {posts.length !== 0 ? (
-                    <button class="deleteAll-button" onClick={() => deletePosts()}>Очистить все посты</button>
-                ) : (
-                    <span>
-                    </span>
-                )
-                }
+                    {error && (
+                        <p className="form-error">
+                            {error}
+                        </p>
+                    )}
+                    <input type="text" placeholder="Заголовок" value={title} onChange={(event) => setTitle(event.target.value)} />
+                    <textarea placeholder="Текст поста" cols="75" value={text} onChange={(event) => setText(event.target.value)}></textarea>
+                    <button type="submit">Опубликовать</button>
+                    {posts.length !== 0 ? (
+                        <button class="deleteAll-button" onClick={() => deletePosts()}>Очистить все посты</button>
+                    ) : (
+                        <span>
+                        </span>
+                    )
+                    }
                 </form>
 
                 {posts.length > 0 ? (
